@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const NODEINFO = gql`
-  fragment NodeInfo on Node {
+  fragment NodeInfo on Repository {
     id
     name
     ownerName

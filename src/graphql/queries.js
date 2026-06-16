@@ -6,18 +6,7 @@ export const GET_REPOSITORIES = gql`
     repositories {
       edges {
         node {
-          id
-          name
-          ownerName
-          createdAt
-          fullName
-          reviewCount
-          ratingAverage
-          forksCount
-          stargazersCount
-          description
-          language
-          ownerAvatarUrl
+          ...NodeInfo
         }
         cursor
       }
@@ -29,8 +18,7 @@ export const GET_REPOSITORIES = gql`
       }
     }
   }
+  ${NODEINFO}
 `;
-
-//  ${NODEINFO}
 
 // other queries...
