@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
 
 const RepositoryItem = ({ repo }) => {
   return (
-    <View>
+    <View testID="repositoryItem">
       <View style={styles.flexHeader}>
         <Image
           style={styles.thumbnail}
