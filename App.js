@@ -19,7 +19,7 @@ const App = () => {
           <AuthStorageContext.Provider value={authStorage}>
             <Main />
           </AuthStorageContext.Provider>
-        </ApolloProvider>{" "}
+        </ApolloProvider>
       </NativeRouter>
     </>
   );
