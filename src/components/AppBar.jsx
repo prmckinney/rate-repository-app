@@ -1,8 +1,10 @@
-import { ScrollView, View, StyleSheet } from "react-native";
+import { Pressable, ScrollView, View, StyleSheet } from "react-native";
 import { Link } from "react-router-native";
 import Constants from "expo-constants";
 import Text from "./Text";
 import theme from "../theme";
+import useUsername from "../hooks/useUsername";
+import useSignOut from "../hooks/useSignOut";
 
 const styles = StyleSheet.create({
   container: {
@@ -21,15 +23,25 @@ const styles = StyleSheet.create({
 });
 
 const AppBar = () => {
+  const signOut = useSignOut();
+  const { username } = useUsername();
+  console.log("username ==> ", username);
+
   return (
     <View style={styles.container}>
       <ScrollView horizontal>
         <Link to="/">
           <Text style={styles.text}>Repositories</Text>
         </Link>
-        <Link to="/SignIn">
-          <Text style={styles.text}>Sign-In</Text>
-        </Link>
+        {username ? (
+          <Pressable onPress={signOut}>
+            <Text style={styles.text}>Sign-Out</Text>
+          </Pressable>
+        ) : (
+          <Link to="/SignIn">
+            <Text style={styles.text}>Sign-In</Text>
+          </Link>
+        )}
       </ScrollView>
     </View>
   );

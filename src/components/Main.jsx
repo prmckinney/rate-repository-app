@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 const Main = () => {
   return (
     <View style={styles.container}>
-      <AppBar></AppBar>
+      <AppBar />
       <Routes>
         <Route path="/" element={<RepositoryList />} />
         <Route path="/SignIn" element={<SignIn />} />

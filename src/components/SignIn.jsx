@@ -5,6 +5,7 @@ import * as yup from "yup";
 import Text from "./Text";
 import theme from "../theme";
 import useSignIn from "../hooks/useSignIn";
+import { useNavigate } from "react-router-native";
 
 const styles = StyleSheet.create({
   input: {
@@ -39,6 +40,7 @@ const validationSchema = yup.object().shape({
 
 const SignIn = () => {
   const [signIn] = useSignIn();
+  const navigate = useNavigate();
 
   const onSubmit = async (values) => {
     const { username, password } = values;
@@ -46,6 +48,7 @@ const SignIn = () => {
     try {
       const { data } = await signIn({ username, password });
       console.log(data);
+      navigate("/");
     } catch (e) {
       console.log(e);
     }
