@@ -21,6 +21,25 @@ export const GET_REPOSITORIES = gql`
   ${NODEINFO}
 `;
 
+export const GET_REPO = gql`
+  query ($id: ID!) {
+    repository(id: $id) {
+      ...NodeInfo
+    }
+  }
+  ${NODEINFO}
+`;
+
+export const GET_URL = gql`
+  query ($id: ID!) {
+    repository(id: $id) {
+      id
+      fullName
+      url
+    }
+  }
+`;
+
 export const USERNAME = gql`
   query {
     me {
