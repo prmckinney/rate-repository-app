@@ -52,6 +52,7 @@ const ReviewItem = ({ review }) => {
 const SingleRepository = () => {
   const { id } = useParams();
   const { loading, error, data } = useQuery(GET_REPO, {
+    fetchPolicy: "cache-and-network",
     variables: { id: id }, // Parameters match the names defined in gql string
   });
 
