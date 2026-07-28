@@ -68,9 +68,11 @@ const RepositoryItem = ({ repo, singleView = false }) => {
         <RepositoryItemCount count={repo.ratingAverage} label="Rating" />
       </View>
       {singleView ? (
-        <Pressable onPress={() => Linking.openURL(data.repository.url)}>
-          <Text style={styles.button}>Open in GitHub</Text>
-        </Pressable>
+        <View>
+          <Pressable onPress={() => Linking.openURL(data.repository.url)}>
+            <Text style={styles.button}>Open in GitHub</Text>
+          </Pressable>
+        </View>
       ) : null}
     </View>
   );
