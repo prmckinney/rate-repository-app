@@ -8,6 +8,14 @@ export const SIGNIN = gql`
   }
 `;
 
+export const SIGNUP = gql`
+  mutation ($username: String!, $password: String!) {
+    createUser(user: { username: $username, password: $password }) {
+      username
+    }
+  }
+`;
+
 export const CREATEREVIEW = gql`
   mutation (
     $ownerName: String!

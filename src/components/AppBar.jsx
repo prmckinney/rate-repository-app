@@ -33,18 +33,24 @@ const AppBar = () => {
         <Link to="/">
           <Text style={styles.text}>Repositories</Text>
         </Link>
-        {username ? (
+        {username && (
           <Link to="/Review">
             <Text style={styles.text}>Create a Review</Text>
           </Link>
-        ) : null}
-        {username ? (
+        )}
+        {username && (
           <Pressable onPress={signOut}>
             <Text style={styles.text}>Sign-Out</Text>
           </Pressable>
-        ) : (
+        )}
+        {!username && (
           <Link to="/SignIn">
             <Text style={styles.text}>Sign-In</Text>
+          </Link>
+        )}
+        {!username && (
+          <Link to="/SignUp">
+            <Text style={styles.text}>Sign-Up</Text>
           </Link>
         )}
       </ScrollView>
