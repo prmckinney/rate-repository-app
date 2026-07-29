@@ -98,6 +98,7 @@ export const USERNAME = gql`
             text
             repository {
               fullName
+              id
             }
             createdAt
           }
