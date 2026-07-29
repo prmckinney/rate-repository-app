@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { useDebounce } from "use-debounce";
 import { FlatList, View, StyleSheet, Pressable } from "react-native";
-import { Menu, Button, PaperProvider } from "react-native-paper";
+import { Menu, Button, PaperProvider, Searchbar } from "react-native-paper";
 import { useNavigate } from "react-router-native";
 
 import useRepositories from "../hooks/useRepositories";
@@ -16,24 +17,21 @@ const styles = StyleSheet.create({
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
-const RepositoryList = () => {
+const RepositoryListHeader = ({
+  setOrderBy,
+  setOrderDirection,
+  search,
+  setSearch,
+}) => {
   const [order, setOrder] = useState("Latest Repositories");
-  const [orderBy, setOrderBy] = useState("CREATED_AT");
-  const [orderDirection, setOrderDirection] = useState("DESC");
-  const { repositories } = useRepositories({ orderBy, orderDirection });
-
-  const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
 
   const openMenu = () => setVisible(true);
   const closeMenu = () => setVisible(false);
 
-  const repositoryNodes = repositories
-    ? repositories.edges.map((edge) => edge.node)
-    : [];
-
   return (
     <PaperProvider>
+      <Searchbar placeholder="Search" onChangeText={setSearch} value={search} />
       <Menu
         visible={visible}
         onDismiss={closeMenu}
@@ -67,16 +65,43 @@ const RepositoryList = () => {
           title="Lowest rated repositories"
         />
       </Menu>
-      <FlatList
-        data={repositoryNodes}
-        ItemSeparatorComponent={ItemSeparator}
-        renderItem={({ item }) => (
-          <Pressable onPress={() => navigate(`/repo/${item.id}`)}>
-            <RepositoryItem repo={item} />
-          </Pressable>
-        )}
-      />
     </PaperProvider>
+  );
+};
+
+const RepositoryList = () => {
+  const [orderBy, setOrderBy] = useState("CREATED_AT");
+  const [orderDirection, setOrderDirection] = useState("DESC");
+  const [search, setSearch] = useState("");
+  const [searchKeyword] = useDebounce(search, 500);
+  const { repositories } = useRepositories({
+    orderBy,
+    orderDirection,
+    searchKeyword,
+  });
+
+  const navigate = useNavigate();
+
+  const repositoryNodes = repositories
+    ? repositories.edges.map((edge) => edge.node)
+    : [];
+
+  return (
+    <FlatList
+      data={repositoryNodes}
+      ItemSeparatorComponent={ItemSeparator}
+      ListHeaderComponent={RepositoryListHeader({
+        setOrderBy,
+        setOrderDirection,
+        search,
+        setSearch,
+      })}
+      renderItem={({ item }) => (
+        <Pressable onPress={() => navigate(`/repo/${item.id}`)}>
+          <RepositoryItem repo={item} />
+        </Pressable>
+      )}
+    />
   );
 };
 

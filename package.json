@@ -34,6 +34,7 @@
     "react-native": "0.83.6",
     "react-native-paper": "^5.15.3",
     "react-router-native": "^6.30.4",
+    "use-debounce": "^10.1.1",
     "yup": "^1.7.1"
   },
   "private": true,
